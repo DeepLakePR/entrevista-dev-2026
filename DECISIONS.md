@@ -20,7 +20,7 @@
 - Decisão de quais frameworks e bibliotecas serão usados
   - Descarte do uso de NestJS OU Express e GraphQL para evitar overengineering
   - Next.JS + ShadCN para o Front-End
-  - Next.JS API Routes para entregar o ```products.json```
+  - Next.JS API Routes para entregar o `products.json`
   - Cypress Testes E2E como diferencial
 - Setup inicial do projeto (instalação de dependências e etc)
 - Criação e organização das pastas e demais arquivos de configuração
