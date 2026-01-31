@@ -2,6 +2,7 @@
 node_modules/
 .pnp
 .pnp.js
+yarn.lock
 
 # Build
 dist/
@@ -17,6 +18,7 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
+next-env.d.ts
 
 # Debug
 npm-debug.log*
