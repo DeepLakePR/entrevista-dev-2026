@@ -1,3 +1,13 @@
-export async function GET(request: Request) {
-    return Response.json({ message: "Ok", ok: true });
+import type { Product } from "@/src/types/product";
+import products from "@/src/lib/products";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+    return new NextResponse(
+        JSON.stringify({
+            products: products as Product[],
+            ok: true
+        }),
+        { status: 200, statusText: "Ok" }
+    );
 }
