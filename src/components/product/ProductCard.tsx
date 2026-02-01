@@ -47,7 +47,6 @@ export default function ProductCard({
                         <Button variant="secondary">
                             <HeartIcon />
                         </Button>
-
                     </CardAction>
 
                     <CardTitle>{name}</CardTitle>

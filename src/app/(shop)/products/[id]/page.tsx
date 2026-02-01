@@ -13,6 +13,8 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/src/components/ui/breadcrumb";
+import { Button } from "@/src/components/ui/button";
+import { HeartIcon, ShoppingCart } from "lucide-react";
 
 interface ProductParams {
     id: number;
@@ -45,10 +47,9 @@ export default function ProductPage({
         });
     }, [params]);
 
-
     return <section className="w-full">
         <div className="p-8">
-            <div className="mb-6">
+            <div className="mb-6 flex items-center justify-between">
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
@@ -64,34 +65,55 @@ export default function ProductPage({
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
+
+                <Button variant="secondary">
+                    <HeartIcon />
+                </Button>
             </div>
 
-            <div>
-                <div>
+            <div className="flex flex-col lg:flex-row">
+                <div className="mx-auto">
                     <Image
                         src={product.image ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1280px-No-Image-Placeholder.svg.png"}
                         width={400}
                         height={400}
                         alt={product.name}
                         title={product.name}
+                        className="rounded-xl object-cover"
                     />
                 </div>
 
-                <div>
-                    <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+                <div className="lg:px-8">
+                    <h2 className="scroll-m-20 pb-2 mt-4 text-3xl font-medium tracking-tight">
                         {product.name}
                     </h2>
-                    <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-                        {formatPrice(product.price)}
-                    </h3>
 
-                    <Badge variant="destructive">
-                        Restam {product.stock}
-                    </Badge>
+                    <div className="flex justify-between mb-4">
+                        <h3 className="scroll-m-20 text-3xl font-bold tracking-tight">
+                            {formatPrice(product.price)}
+                        </h3>
+
+                        <Badge variant="destructive">
+                            Restam {product.stock} Unidades
+                        </Badge>
+                    </div>
+
+                    <div className="flex gap-2 lg:max-w-100">
+                        <Button className="w-3/4">
+                            Comprar Agora
+                        </Button>
+                        <Button className="w-1/4">
+                            <ShoppingCart />
+                        </Button>
+                    </div>
+
+                    <hr className="h-2 my-4" />
 
                     <p>
                         {product.description}
                     </p>
+
+                    <hr className="h-2 my-2" />
                 </div>
             </div>
 
