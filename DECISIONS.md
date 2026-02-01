@@ -28,3 +28,9 @@
 - (13:20) Correção de problemas de configuração como postcss, shadcn, etc
 - (14:15) Desenvolvimento da entrega dos produtos através das rotas `Products/` & `/Products/[id]`
 - (17:40) Desenvolvimento da base do Front-End (Header, Footer, Componentes)
+
+### Domingo 01/02
+
+- (13:50) Início do desenvolvimento dos principais componentes como ProductCard, CartItem
+- (15:30) Melhorias no Design, deixando mais clean, minimalista e moderno
+- (16:30) Página das informações do produto selecionado (Via URL)
