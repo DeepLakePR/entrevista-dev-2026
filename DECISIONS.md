@@ -8,10 +8,11 @@
 
 ## Decisões Relevantes
 
-- Usei Chat GPT 5.2 para ter uma outra percepção acerca das decisões a serem tomadas para o desenvolvimento do projeto
+- Usei Chat GPT 5.2 & Codex para ter uma outra percepção acerca das decisões a serem tomadas para o desenvolvimento do projeto
 - Uso de Next.JS API Routes para evitar overengineering com NestJS ou Express
 - Estrutura de pastas e componentes criados para serem o mais amigáveis e reutilizáveis possível
 - Redesign do Header e Footer + Adição de Font Family Poppins para um design mais agradável
+- Uso do Codex para implementar o Skeleton Loading na listagem de produtos e na página de detalhes do produto
 
 ## Diário do Desenvolvedor - Teste Técnico (Em Ordem Cronológica)
 

@@ -14,6 +14,7 @@ import {
     BreadcrumbSeparator,
 } from "@/src/components/ui/breadcrumb";
 import { Button } from "@/src/components/ui/button";
+import { Skeleton } from "@/src/components/ui/skeleton";
 import { HeartIcon, ShoppingCart } from "lucide-react";
 
 interface ProductParams {
@@ -32,20 +33,62 @@ export default function ProductPage({
 }) {
 
     const [product, setProduct] = useState<Product | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         params.then(async (resolvedParams: ProductParams) => {
 
-            const productRes = await fetch(`/api/products/${resolvedParams.id}`);
-            const productData: ProductResponseData = await productRes.json();
+            try {
+                const productRes = await fetch(`/api/products/${resolvedParams.id}`);
+                const productData: ProductResponseData = await productRes.json();
 
-            console.log(productData);
-
-            if (productData.ok)
-                setProduct(productData.product);
+                if (productData.ok)
+                    setProduct(productData.product);
+            } finally {
+                setIsLoading(false);
+            }
 
         });
     }, [params]);
+
+    if (isLoading || !product) {
+        return <section className="w-full">
+            <div className="p-8">
+                <div className="mb-6 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <Skeleton className="h-4 w-20" />
+                        <Skeleton className="h-4 w-24" />
+                        <Skeleton className="h-4 w-28" />
+                    </div>
+                    <Skeleton className="h-10 w-10 rounded-md" />
+                </div>
+
+                <div className="flex flex-col lg:flex-row">
+                    <div className="mx-auto w-full max-w-[400px]">
+                        <Skeleton className="h-[400px] w-full rounded-xl" />
+                    </div>
+
+                    <div className="lg:px-8 w-full mt-4 lg:mt-0">
+                        <Skeleton className="h-8 w-3/4" />
+
+                        <div className="flex justify-between mb-4 mt-4">
+                            <Skeleton className="h-8 w-1/3" />
+                            <Skeleton className="h-8 w-1/4" />
+                        </div>
+
+                        <div className="flex gap-2 lg:max-w-100">
+                            <Skeleton className="h-10 w-3/4" />
+                            <Skeleton className="h-10 w-1/4" />
+                        </div>
+
+                        <Skeleton className="h-4 w-full mt-6" />
+                        <Skeleton className="h-4 w-11/12 mt-2" />
+                        <Skeleton className="h-4 w-10/12 mt-2" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
 
     return <section className="w-full">
         <div className="p-8">
@@ -61,7 +104,7 @@ export default function ProductPage({
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbLink href="#">Código: {product.id}</BreadcrumbLink>
+                            <BreadcrumbLink href="#">Id: {product.id}</BreadcrumbLink>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
