@@ -28,7 +28,7 @@ export default function Page() {
     }, []);
 
     return <section>
-        <div className="">
+        <div>
 
             <div className="flex flex-wrap p-4">
                 {products.map((p: Product) => 
