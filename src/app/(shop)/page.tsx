@@ -1,5 +1,6 @@
 "use client"
 
+import CartDrawer from "@/src/components/cart/CartDrawer";
 import ProductCard from "@/src/components/product/ProductCard";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import { Product } from "@/src/types/product"
@@ -34,6 +35,8 @@ export default function Page() {
 
     return <section>
         <div>
+
+            <CartDrawer />
 
             <div className="flex flex-wrap p-4">
                 {isLoading ? (

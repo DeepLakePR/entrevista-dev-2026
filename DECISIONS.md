@@ -36,3 +36,4 @@
 - (13:50) Início do desenvolvimento dos principais componentes como ProductCard, CartItem
 - (15:30) Melhorias no Design, deixando mais clean, minimalista e moderno
 - (16:30) Página das informações do produto selecionado (Via URL)
+- (18:20) Drawer do Carrinho de Compras (CartDrawer & CartItem)
