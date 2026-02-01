@@ -1,6 +1,6 @@
 import { Product } from "@/src/types/product";
 import { NextRequest, NextResponse } from "next/server";
-import products from "@/src/lib/products";
+import products from "@/src/lib/server/products";
 
 interface ProductParams {
     id: number
