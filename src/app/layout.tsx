@@ -1,6 +1,10 @@
+import { Poppins } from "next/font/google";
+
 import Footer from "../components/shared/Footer"
 import Header from "../components/shared/Header"
-import { Poppins } from "next/font/google";
+
+import { CartProvider } from "../context/CartContext";
+import { FavoritesProvider } from "../context/FavoritesContext";
 
 import "./globals.css";
 import { Metadata } from "next";
@@ -25,11 +29,17 @@ export default function RootLayout({
     return (
         <html lang="pt-BR" className={poppins.variable}>
             <body>
-                <Header />
+                <CartProvider>
+                    <FavoritesProvider>
+                        
+                        <Header />
 
-                {children}
+                        {children}
 
-                <Footer />
+                        <Footer />
+
+                    </FavoritesProvider>
+                </CartProvider>
             </body>
         </html>
     )

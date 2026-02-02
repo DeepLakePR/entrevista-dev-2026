@@ -38,3 +38,5 @@
 - (16:30) Página das informações do produto selecionado (Via URL)
 - (18:20) Drawer do Carrinho de Compras (CartDrawer & CartItem)
 - (21:30) Início do desenvolvimento das lógicas de adicionar ao carrinho, compra, favoritos, etc
+- (22:40) Integração do CartProvider e FavoritesProvider no `layout.tsx`
+- (23:00) Uso dos Providers/Context nas demais páginas e componentes
