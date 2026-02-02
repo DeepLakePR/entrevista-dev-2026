@@ -13,6 +13,7 @@
 - Estrutura de pastas e componentes criados para serem o mais amigáveis e reutilizáveis possível
 - Redesign do Header e Footer + Adição de Font Family Poppins para um design mais agradável
 - Uso do Codex para implementar o Skeleton Loading na listagem de produtos e na página de detalhes do produto
+- Refatoração e Revisão usando Codex para melhorar o que já foi feito
 
 ## Diário do Desenvolvedor - Teste Técnico (Em Ordem Cronológica)
 
@@ -41,3 +42,8 @@
 - (22:40) Integração do CartProvider e FavoritesProvider no `layout.tsx`
 - (23:00) Uso dos Providers/Context nas demais páginas e componentes
 - (23:30) Test Deploy para checar se está tudo ok em ambiente de produção
+
+### Segunda-Feira 02/02
+
+- (10:30) Melhorias visuais no breadcrumb da página de produto
+- (11:20) Refatoração completa do projeto usando Codex para refinamentos (Sem alterar o comportamento/lógica principal)
