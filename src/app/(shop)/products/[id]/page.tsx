@@ -141,7 +141,7 @@ export default function ProductPage({
                         </Badge>
                     </div>
 
-                    <div className="flex gap-2 lg:max-w-100">
+                    <div className="flex gap-2 lg:max-w-full pr-2">
                         <Button className="w-3/4">
                             Comprar Agora
                         </Button>

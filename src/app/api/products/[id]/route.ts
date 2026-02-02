@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import products from "@/src/lib/server/products";
 
 interface ProductParams {
-    id: number
+    id: string
 }
 
 function getProductById(id: number): Product | null {

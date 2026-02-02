@@ -36,7 +36,6 @@ export default function Page() {
     return <section>
         <div>
 
-            <CartDrawer />
 
             <div className="flex flex-wrap p-4">
                 {isLoading ? (
