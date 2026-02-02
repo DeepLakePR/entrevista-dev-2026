@@ -110,7 +110,7 @@ export default function ProductPage({
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="#">Id: {product.id}</BreadcrumbLink>
+                                <BreadcrumbPage>Id: {product.id}</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -159,17 +159,15 @@ export default function ProductPage({
                             </Button>
                         </div>
 
-
                         <p>
                             {product.description}
                         </p>
                     </div>
                 </div>
 
-
-
             </div>
         </section>
+        
         <hr className="h-2 my-2" />
     </>
 }
