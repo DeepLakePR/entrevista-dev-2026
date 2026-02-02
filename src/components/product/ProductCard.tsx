@@ -11,22 +11,28 @@ import {
     CardHeader,
     CardTitle,
 } from "../ui/card";
+import { useCart } from "@/src/context/CartContext";
+import { useFavorites } from "@/src/context/FavoritesContext";
+import { Product } from "@/src/types/Product";
 
 interface ProductCardProps {
-    id: number,
-    name: string,
-    price: number,
-    image?: string,
-    category?: string,
+    product: Product;
 }
 
 export default function ProductCard({
-    id,
-    name,
-    price,
-    image,
-    category
+    product
 }: ProductCardProps) {
+
+    const { addItem } = useCart();
+    const { toggleFavorite } = useFavorites();
+
+    const {
+        id,
+        name,
+        price,
+        image,
+        category,
+    } = product;
 
     return <div className="rounded-xl p-4 w-full sm:w-1/2 lg:w-1/3">
         <Link href={`/products/${id}`} title={"Comprar Agora " + name}>
@@ -44,7 +50,10 @@ export default function ProductCard({
                 </div>
                 <CardHeader>
                     <CardAction>
-                        <Button variant="secondary">
+                        <Button variant="secondary" onClick={(e) => {
+                            e.preventDefault();
+                            toggleFavorite(product)
+                        }}>
                             <HeartIcon />
                         </Button>
                     </CardAction>
@@ -58,10 +67,16 @@ export default function ProductCard({
                 </CardHeader>
 
                 <CardFooter className="justify-between gap-2">
-                    <Button className="w-3/4">
+                    <Button className="w-3/4" onClick={(e) => {
+                        e.preventDefault();
+                        addItem(product, { openDrawer: true })
+                    }}>
                         Comprar
                     </Button>
-                    <Button className="w-1/4">
+                    <Button className="w-1/4" onClick={(e) => {
+                        e.preventDefault();
+                        addItem(product);
+                    }}>
                         <ShoppingCart />
                     </Button>
                 </CardFooter>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { formatPrice } from "@/src/lib/utils";
+import { useCart } from "@/src/context/CartContext";
 
 interface CartItemProps {
     id: number;
@@ -14,6 +15,8 @@ interface CartItemProps {
 }
 
 export default function CartItem(item: CartItemProps) {
+
+    const { increment, decrement } = useCart();
 
     if (!item.id)
         return <p>Item Not Found</p>
@@ -38,13 +41,15 @@ export default function CartItem(item: CartItemProps) {
             </div>
 
             <div className="flex items-center justify-start lg:justify-center gap-x-1">
-                <Button variant="ghost" size="icon-sm">
+                <Button variant="ghost" size="icon-sm"
+                onClick={() => decrement(item.id)}>
                     <MinusCircle />
                 </Button>
 
                 {item.quantity}
 
-                <Button variant="ghost" size="icon-sm">
+                <Button variant="ghost" size="icon-sm"
+                onClick={() => increment(item.id)}>
                     <PlusCircle />
                 </Button>
             </div>

@@ -6,11 +6,6 @@ import { Skeleton } from "@/src/components/ui/skeleton";
 import { Product } from "@/src/types/Product"
 import { useEffect, useState } from "react"
 
-interface ProductsFetchRes {
-    ok: boolean,
-    products: Product[]
-}
-
 export default function Page() {
 
     const [products, setProducts] = useState<Product[] | []>([]);
@@ -58,11 +53,7 @@ export default function Page() {
                 ) : (
                     products.map((p: Product) =>
                         <ProductCard
-                            id={p.id}
-                            name={p.name}
-                            price={p.price}
-                            category={p.category}
-                            image={p.image}
+                            product={p}
                             key={p.id}
                         />
                     )

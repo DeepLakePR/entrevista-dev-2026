@@ -16,6 +16,8 @@ import {
 import { Button } from "@/src/components/ui/button";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import { HeartIcon, ShoppingCart } from "lucide-react";
+import { useCart } from "@/src/context/CartContext";
+import { useFavorites } from "@/src/context/FavoritesContext";
 
 interface ProductParams {
     id: number;
@@ -31,6 +33,9 @@ export default function ProductPage({
 }: {
     params: Promise<ProductParams>
 }) {
+
+    const { addItem } = useCart();
+    const { toggleFavorite } = useFavorites();
 
     const [product, setProduct] = useState<Product | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -109,7 +114,8 @@ export default function ProductPage({
                     </BreadcrumbList>
                 </Breadcrumb>
 
-                <Button variant="secondary">
+                <Button variant="secondary"
+                onClick={() => toggleFavorite(product)}>
                     <HeartIcon />
                 </Button>
             </div>
@@ -142,10 +148,12 @@ export default function ProductPage({
                     </div>
 
                     <div className="flex gap-2 lg:max-w-full pr-2">
-                        <Button className="w-3/4">
+                        <Button className="w-3/4"
+                        onClick={() => addItem(product, { openDrawer: true })}>
                             Comprar Agora
                         </Button>
-                        <Button className="w-1/4">
+                        <Button className="w-1/4"
+                        onClick={() => addItem(product)}>
                             <ShoppingCart />
                         </Button>
                     </div>

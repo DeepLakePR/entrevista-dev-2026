@@ -1,9 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { HeartIcon, ShoppingCart } from "lucide-react";
+import { useCart } from "@/src/context/CartContext";
 
 export default function Header() {
+
+    const { setDrawerOpen } = useCart();
+
     return <header className="border-b-1">
         <div className="text-white py-4 px-3 flex justify-between">
             <Link href="/" title="Uncode Commerce">
@@ -18,7 +24,7 @@ export default function Header() {
             </Link>
 
             <div className="flex gap-2">
-                <Button size="lg">
+                <Button size="lg" onClick={() => setDrawerOpen(true)}>
                     <ShoppingCart />
                     0
                 </Button>
