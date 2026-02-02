@@ -1,4 +1,4 @@
-import type { Product } from "@/src/types/product";
+import type { Product } from "@/src/types/Product";
 import products from "@/src/lib/server/products";
 import { NextRequest, NextResponse } from "next/server";
 

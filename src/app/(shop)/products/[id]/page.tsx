@@ -2,7 +2,7 @@
 
 import { Badge } from "@/src/components/ui/badge";
 import { formatPrice } from "@/src/lib/utils";
-import { Product } from "@/src/types/product"
+import { Product } from "@/src/types/Product"
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import {

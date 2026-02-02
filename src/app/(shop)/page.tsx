@@ -3,7 +3,7 @@
 import CartDrawer from "@/src/components/cart/CartDrawer";
 import ProductCard from "@/src/components/product/ProductCard";
 import { Skeleton } from "@/src/components/ui/skeleton";
-import { Product } from "@/src/types/product"
+import { Product } from "@/src/types/Product"
 import { useEffect, useState } from "react"
 
 interface ProductsFetchRes {
