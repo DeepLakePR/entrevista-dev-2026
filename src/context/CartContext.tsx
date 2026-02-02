@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, {
+    createContext,
+    useCallback,
+    useContext,
+    useMemo,
+    useState
+} from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Product } from "../types/Product";
 import type { CartItem } from "../types/CartItem";
@@ -9,15 +15,29 @@ type AddOptions = {
     openDrawer?: boolean;
 }
 
+type CartActionResult = {
+    added: boolean;
+    reason?: "stock_limit";
+};
+
+type CartToggleResult = {
+    added: boolean;
+    removed: boolean;
+    reason?: "stock_limit";
+};
+
 type CartContextValue = {
     items: CartItem[];
     totalItems: number;
     totalPrice: number;
     isDrawerOpen: boolean;
     setDrawerOpen: (open: boolean) => void;
-    addItem: (product: Product, options?: AddOptions) => { added: boolean; reason?: "stock_limit" };
+    addItem: (product: Product, options?: AddOptions) => CartActionResult;
+    toggleItem: (product: Product, options?: AddOptions) => CartToggleResult;
+    isInCart: (id: number) => boolean;
+    getItemQuantity: (id: number) => number;
     removeItem: (id: number) => void;
-    increment: (id: number) => { added: boolean; reason?: "stock_limit" };
+    increment: (id: number) => CartActionResult;
     decrement: (id: number) => void;
     clear: () => void;
 }
@@ -28,6 +48,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     const { value: items, setValue: setItems } = useLocalStorage<CartItem[]>("cart", []);
     const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+    const buildCartItem = (product: Product): CartItem => ({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        stock: product.stock,
+        quantity: 1
+    });
 
     const addItem: CartContextValue["addItem"] = (product, options) => {
         let added = false;
@@ -44,17 +73,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
                 added = true;
 
-                return [
-                    ...prev,
-                    {
-                        id: product.id,
-                        name: product.name,
-                        price: product.price,
-                        image: product.image,
-                        stock: product.stock,
-                        quantity: 1
-                    }
-                ]
+                return [...prev, buildCartItem(product)]
             }
 
             if (existing.quantity >= existing.stock) {
@@ -72,6 +91,32 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         if (options?.openDrawer) setDrawerOpen(true);
 
         return { added, reason };
+    }
+
+    const toggleItem: CartContextValue["toggleItem"] = (product, options) => {
+        let added = false;
+        let removed = false;
+        let reason: "stock_limit" | undefined;
+
+        setItems(prev => {
+            const existing = prev.find(i => i.id === product.id);
+            if (existing) {
+                removed = true;
+                return prev.filter(i => i.id !== product.id);
+            }
+
+            if (product.stock <= 0) {
+                reason = "stock_limit";
+                return prev;
+            }
+
+            added = true;
+            return [...prev, buildCartItem(product)];
+        });
+
+        if (options?.openDrawer && added) setDrawerOpen(true);
+
+        return { added, removed, reason };
     }
 
     const increment: CartContextValue["increment"] = (id) => {
@@ -114,6 +159,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         [items]
     )
 
+    const itemsById = useMemo(
+        () => new Map(items.map((item) => [item.id, item])),
+        [items]
+    );
+
+    const isInCart = useCallback(
+        (id: number) => itemsById.has(id),
+        [itemsById]
+    );
+
+    const getItemQuantity = useCallback(
+        (id: number) => itemsById.get(id)?.quantity ?? 0,
+        [itemsById]
+    );
+
     const value: CartContextValue = {
         items,
         totalItems,
@@ -121,6 +181,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         isDrawerOpen,
         setDrawerOpen,
         addItem,
+        toggleItem,
+        isInCart,
+        getItemQuantity,
         removeItem,
         increment,
         decrement,

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, useCallback, useContext, useMemo } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Product } from "../types/Product";
 import type { FavoriteItem } from "../types/FavoriteItem";
@@ -22,9 +22,17 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
         []
     );
 
-    const isFavorite = (id: number) => favorites.some(f => f.id === id);
+    const favoriteIds = useMemo(
+        () => new Set(favorites.map((favorite) => favorite.id)),
+        [favorites]
+    );
 
-    const toggleFavorite = (product: Product) => {
+    const isFavorite = useCallback(
+        (id: number) => favoriteIds.has(id),
+        [favoriteIds]
+    );
+
+    const toggleFavorite = useCallback((product: Product) => {
         setFavorites(prev => {
             if (prev.some(f => f.id === product.id)) {
                 return prev.filter(f => f.id !== product.id);
@@ -41,7 +49,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
                 }
             ]
         })
-    }
+    }, [setFavorites]);
 
     const removeFavorite = (id: number) => {
         setFavorites(prev => prev.filter(f => f.id !== id));

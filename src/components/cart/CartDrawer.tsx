@@ -41,9 +41,9 @@ export default function CartDrawer() {
                         </DrawerTitle>
                     </DrawerHeader>
                     <div className="no-scrollbar overflow-y-auto px-4">
-                        {items.map((item, i) => 
+                        {items.map((item) => 
                             <CartItem
-                                key={i}
+                                key={item.id}
                                 id={item.id}
                                 name={item.name}
                                 price={item.price}

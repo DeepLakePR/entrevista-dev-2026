@@ -1,10 +1,8 @@
 "use client"
 
 import { Badge } from "@/src/components/ui/badge";
-import { formatPrice } from "@/src/lib/utils";
-import { Product } from "@/src/types/Product"
+import { formatPrice, cn } from "@/src/lib/utils";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -14,18 +12,15 @@ import {
     BreadcrumbSeparator,
 } from "@/src/components/ui/breadcrumb";
 import { Button } from "@/src/components/ui/button";
-import { Skeleton } from "@/src/components/ui/skeleton";
-import { HeartIcon, ShoppingCart } from "lucide-react";
+import { Check, HeartIcon, ShoppingCart } from "lucide-react";
 import { useCart } from "@/src/context/CartContext";
 import { useFavorites } from "@/src/context/FavoritesContext";
+import ProductDetailsSkeleton from "@/src/components/skeletons/ProductDetailsSkeleton";
+import { useProduct } from "@/src/hooks/useProduct";
+import { PRODUCT_IMAGE_PLACEHOLDER } from "@/src/lib/constants";
 
 interface ProductParams {
     id: number;
-}
-
-interface ProductResponseData {
-    ok: boolean,
-    product: Product
 }
 
 export default function ProductPage({
@@ -34,69 +29,19 @@ export default function ProductPage({
     params: Promise<ProductParams>
 }) {
 
-    const { addItem } = useCart();
-    const { toggleFavorite } = useFavorites();
-
-    const [product, setProduct] = useState<Product | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        params.then(async (resolvedParams: ProductParams) => {
-
-            try {
-                const productRes = await fetch(`/api/products/${resolvedParams.id}`);
-                const productData: ProductResponseData = await productRes.json();
-
-                if (productData.ok)
-                    setProduct(productData.product);
-            } finally {
-                setIsLoading(false);
-            }
-
-        });
-    }, [params]);
+    const { addItem, isInCart, toggleItem } = useCart();
+    const { toggleFavorite, isFavorite } = useFavorites();
+    const { product, isLoading } = useProduct(params);
 
     if (isLoading || !product) {
-        return <section className="w-full">
-            <div className="p-8">
-                <div className="mb-6 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <Skeleton className="h-4 w-20" />
-                        <Skeleton className="h-4 w-24" />
-                        <Skeleton className="h-4 w-28" />
-                    </div>
-                    <Skeleton className="h-10 w-10 rounded-md" />
-                </div>
-
-                <div className="flex flex-col lg:flex-row">
-                    <div className="mx-auto w-full max-w-[400px]">
-                        <Skeleton className="h-[400px] w-full rounded-xl" />
-                    </div>
-
-                    <div className="lg:px-8 w-full mt-4 lg:mt-0">
-                        <Skeleton className="h-8 w-3/4" />
-
-                        <div className="flex justify-between mb-4 mt-4">
-                            <Skeleton className="h-8 w-1/3" />
-                            <Skeleton className="h-8 w-1/4" />
-                        </div>
-
-                        <div className="flex gap-2 lg:max-w-100">
-                            <Skeleton className="h-10 w-3/4" />
-                            <Skeleton className="h-10 w-1/4" />
-                        </div>
-
-                        <Skeleton className="h-4 w-full mt-6" />
-                        <Skeleton className="h-4 w-11/12 mt-2" />
-                        <Skeleton className="h-4 w-10/12 mt-2" />
-                    </div>
-                </div>
-            </div>
-        </section>
+        return <ProductDetailsSkeleton />
     }
 
+    const favorited = isFavorite(product.id);
+    const inCart = isInCart(product.id);
+
     return <>
-        <section className="w-full">
+        <section className="w-full min-h-[80vh]">
             <div className="p-8">
                 <div className="mb-6 flex items-center justify-between">
                     <Breadcrumb>
@@ -115,16 +60,24 @@ export default function ProductPage({
                         </BreadcrumbList>
                     </Breadcrumb>
 
-                    <Button variant="secondary"
-                        onClick={() => toggleFavorite(product)}>
-                        <HeartIcon />
+                    <Button
+                        variant="secondary"
+                        aria-pressed={favorited}
+                        title={favorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                        className={cn(
+                            "transition-colors",
+                            favorited ? "text-red-500 hover:text-red-600" : "text-muted-foreground"
+                        )}
+                        onClick={() => toggleFavorite(product)}
+                    >
+                        <HeartIcon fill={favorited ? "currentColor" : "none"} />
                     </Button>
                 </div>
 
                 <div className="flex flex-col lg:flex-row">
                     <div className="mx-auto lg:max-w-1/3">
                         <Image
-                            src={product.image ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1280px-No-Image-Placeholder.svg.png"}
+                            src={product.image ?? PRODUCT_IMAGE_PLACEHOLDER}
                             width={400}
                             height={400}
                             alt={product.name}
@@ -153,9 +106,16 @@ export default function ProductPage({
                                 onClick={() => addItem(product, { openDrawer: true })}>
                                 Comprar Agora
                             </Button>
-                            <Button className="w-1/4"
-                                onClick={() => addItem(product)}>
-                                <ShoppingCart />
+                            <Button
+                                className={cn(
+                                    "w-1/4 transition-colors",
+                                    inCart ? "bg-emerald-600 text-white hover:bg-emerald-600/90" : ""
+                                )}
+                                aria-pressed={inCart}
+                                title={inCart ? "Remover do carrinho" : "Adicionar ao carrinho"}
+                                onClick={() => toggleItem(product)}
+                            >
+                                {inCart ? <Check /> : <ShoppingCart />}
                             </Button>
                         </div>
 

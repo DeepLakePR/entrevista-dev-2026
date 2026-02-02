@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { formatPrice } from "@/src/lib/utils";
 import { useCart } from "@/src/context/CartContext";
+import { PRODUCT_IMAGE_PLACEHOLDER } from "@/src/lib/constants";
 
 interface CartItemProps {
     id: number;
@@ -23,7 +24,7 @@ export default function CartItem(item: CartItemProps) {
 
     return <div className="flex py-4 items-center">
         <Image
-            src={item.image ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1280px-No-Image-Placeholder.svg.png"}
+            src={item.image ?? PRODUCT_IMAGE_PLACEHOLDER}
             width={64}
             height={64}
             alt={item.name}
