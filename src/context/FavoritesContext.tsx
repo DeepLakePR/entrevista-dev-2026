@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Product } from "../types/Product";
-import type { FavoriteItem } from "../types/favoriteItem";
+import type { FavoriteItem } from "../types/FavoriteItem";
 
 type FavoritesContextValue = {
     favorites: FavoriteItem[];
