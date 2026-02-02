@@ -8,7 +8,7 @@ import { useCart } from "@/src/context/CartContext";
 
 export default function Header() {
 
-    const { setDrawerOpen } = useCart();
+    const { setDrawerOpen, totalItems } = useCart();
 
     return <header className="border-b-1">
         <div className="text-white py-4 px-3 flex justify-between">
@@ -26,7 +26,7 @@ export default function Header() {
             <div className="flex gap-2">
                 <Button size="lg" onClick={() => setDrawerOpen(true)}>
                     <ShoppingCart />
-                    0
+                    {totalItems}
                 </Button>
                 <Button size="lg">
                     <HeartIcon fill="red" color="red" />
