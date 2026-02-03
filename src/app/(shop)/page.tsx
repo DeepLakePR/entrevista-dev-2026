@@ -6,12 +6,16 @@ import ProductCard from "@/src/components/product/ProductCard";
 import ProductFilter from "@/src/components/product/ProductFilter";
 import ProductGridSkeleton from "@/src/components/skeletons/ProductGridSkeleton";
 import { useProducts } from "@/src/hooks/useProducts";
+import { useSearchParams } from "next/navigation";
 
 type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc" | "";
 
 export default function Page() {
+
+    const searchParams = useSearchParams();
+
     const { products, isLoading } = useProducts();
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>(searchParams.get("category") ? [searchParams.get("category")] : []);
     const [sort, setSort] = useState<SortOption>("");
     const [searchTerm, setSearchTerm] = useState("");
     const [isFiltering, setIsFiltering] = useState(false);
@@ -19,9 +23,8 @@ export default function Page() {
     useEffect(() => {
         if (isLoading) return;
 
-        (async function(){
-            setIsFiltering(true);
-
+        (async function(){ 
+            setIsFiltering(true); 
         })();
         
         const timeoutId = setTimeout(() => setIsFiltering(false), 250);

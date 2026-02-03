@@ -51,7 +51,7 @@ export default function ProductPage({
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="#">{product.category}</BreadcrumbLink>
+                                <BreadcrumbLink href={`/?category=${product.category}`}>{product.category}</BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
