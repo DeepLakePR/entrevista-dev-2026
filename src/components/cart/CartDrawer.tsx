@@ -52,7 +52,7 @@ export default function CartDrawer() {
             Painel lateral para revisar itens e finalizar compra.
           </DrawerDescription>
 
-          <div className="no-scrollbar overflow-y-auto px-4">
+          <div className="no-scrollbar overflow-y-auto px-4 [&::-webkit-scrollbar]:[width:10px]">
             {items.length === 0 ? (
               <p className="py-8 text-center text-muted-foreground" role="status">
                 Seu carrinho esta vazio.

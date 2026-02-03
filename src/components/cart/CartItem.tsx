@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MinusCircle, PlusCircle } from "lucide-react";
+import { MinusCircle, PlusCircle, X } from "lucide-react";
 
 import { useCart } from "@/src/context/CartContext";
 import { PRODUCT_IMAGE_PLACEHOLDER } from "@/src/lib/constants";
@@ -18,7 +18,7 @@ interface CartItemProps {
 
 export default function CartItem(item: CartItemProps) {
 
-  const { increment, decrement } = useCart();
+  const { increment, decrement, removeItem } = useCart();
 
   if (!item.id) return <p>Item not found.</p>;
 
@@ -45,32 +45,45 @@ export default function CartItem(item: CartItemProps) {
           <p className="font-bold">{formatPrice(item.price)}</p>
         </div>
 
-        <div className="flex items-center justify-start gap-x-1 lg:justify-center">
-          
+        <div className="flex justify-between lg:flex-col lg:justify-center lg:items-center">
+          <div className="flex items-center justify-start gap-x-1 lg:justify-center">
+
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label={`Diminuir quantidade de ${item.name}`}
+              disabled={cannotDecrease}
+              onClick={() => decrement(item.id)}
+            >
+              <MinusCircle aria-hidden="true" />
+            </Button>
+
+            <output aria-live="polite" aria-label={`Quantidade: ${item.quantity}`}>
+              {item.quantity}
+            </output>
+
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label={`Aumentar quantidade de ${item.name}`}
+              disabled={cannotIncrease}
+              onClick={() => increment(item.id)}
+            >
+              <PlusCircle aria-hidden="true" />
+            </Button>
+
+          </div>
+
           <Button
-            variant="ghost"
             size="icon-sm"
-            aria-label={`Diminuir quantidade de ${item.name}`}
-            disabled={cannotDecrease}
-            onClick={() => decrement(item.id)}
-          >
-            <MinusCircle aria-hidden="true" />
-          </Button>
-
-          <output aria-live="polite" aria-label={`Quantidade: ${item.quantity}`}>
-            {item.quantity}
-          </output>
-
-          <Button
             variant="ghost"
-            size="icon-sm"
-            aria-label={`Aumentar quantidade de ${item.name}`}
-            disabled={cannotIncrease}
-            onClick={() => increment(item.id)}
-          >
-            <PlusCircle aria-hidden="true" />
+            aria-label={`Remover ${item.name}`}
+            className="
+            text-red-700
+          "
+            onClick={() => removeItem(item.id)}>
+            <X aria-hidden="true" />
           </Button>
-
         </div>
 
       </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import ShopHomePage from "@/src/components/pages/ShopHomePage";
+import ShopHomePage from "@/src/components/pages/ShopHomePageClient";
 import { buildMetadata } from "@/src/lib/seo";
 import { Suspense } from "react";
 import ShopHomePageSkeleton from "@/src/components/skeletons/ShopHomePageSkeleton";
