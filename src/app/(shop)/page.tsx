@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import ShopHomePage from "@/src/components/pages/ShopHomePage";
 import { buildMetadata } from "@/src/lib/seo";
+import { Suspense } from "react";
+import ShopHomePageSkeleton from "@/src/components/skeletons/ShopHomePageSkeleton";
 
 type HomeSearchParams = Record<string, string | string[] | undefined>;
 
@@ -26,12 +28,14 @@ export async function generateMetadata({
   }
 
   return buildMetadata({
-    title: "Catálogo de produtos",
+    title: "Produtos",
     description: "Explore produtos para devs com filtros por categoria, busca e ordenacao.",
     path: "/",
   });
 }
 
 export default function Page() {
-  return <ShopHomePage />;
+  return <Suspense fallback={<ShopHomePageSkeleton />}>
+    <ShopHomePage />
+  </Suspense>;
 }
