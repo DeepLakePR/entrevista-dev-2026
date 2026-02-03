@@ -1,59 +1,79 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
-import { formatPrice } from "@/src/lib/utils";
+
 import { useCart } from "@/src/context/CartContext";
 import { PRODUCT_IMAGE_PLACEHOLDER } from "@/src/lib/constants";
+import { formatPrice } from "@/src/lib/utils";
+import { Button } from "../ui/button";
 
 interface CartItemProps {
-    id: number;
-    name: string;
-    price: number;
-    image?: string;
-    quantity: number;
-    maxQuantity: number;
+  id: number;
+  name: string;
+  price: number;
+  image?: string;
+  quantity: number;
+  maxQuantity: number;
 }
 
 export default function CartItem(item: CartItemProps) {
 
-    const { increment, decrement } = useCart();
+  const { increment, decrement } = useCart();
 
-    if (!item.id)
-        return <p>Item Not Found</p>
+  if (!item.id) return <p>Item not found.</p>;
 
-    return <div className="flex py-4 items-center">
-        <Image
-            src={item.image ?? PRODUCT_IMAGE_PLACEHOLDER}
-            width={64}
-            height={64}
-            alt={item.name}
-            title={item.name}
-            className="rounded-lg object-cover size-16"
-        />
+  const cannotDecrease = item.quantity <= 1;
+  const cannotIncrease = item.quantity >= item.maxQuantity;
 
-        <div className="px-4 flex-col flex lg:flex-row lg:justify-between w-full">
-            <div>
-                <Link href={`/products/${item.id}/`} title={item.name}>
-                    {item.name}
-                </Link>
+  return (
+    <article className="flex items-center py-4" aria-label={`Item ${item.name}`}>
+      <Image
+        src={item.image ?? PRODUCT_IMAGE_PLACEHOLDER}
+        width={64}
+        height={64}
+        alt={item.name}
+        title={item.name}
+        className="size-16 rounded-lg object-cover"
+      />
 
-                <p className="font-bold">{formatPrice(item.price)}</p>
-            </div>
+      <div className="flex w-full flex-col px-4 lg:flex-row lg:justify-between">
+        <div>
+          <Link href={`/products/${item.id}/`} title={item.name}>
+            {item.name}
+          </Link>
 
-            <div className="flex items-center justify-start lg:justify-center gap-x-1">
-                <Button variant="ghost" size="icon-sm"
-                onClick={() => decrement(item.id)}>
-                    <MinusCircle />
-                </Button>
-
-                {item.quantity}
-
-                <Button variant="ghost" size="icon-sm"
-                onClick={() => increment(item.id)}>
-                    <PlusCircle />
-                </Button>
-            </div>
+          <p className="font-bold">{formatPrice(item.price)}</p>
         </div>
-    </div>
+
+        <div className="flex items-center justify-start gap-x-1 lg:justify-center">
+          
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`Diminuir quantidade de ${item.name}`}
+            disabled={cannotDecrease}
+            onClick={() => decrement(item.id)}
+          >
+            <MinusCircle aria-hidden="true" />
+          </Button>
+
+          <output aria-live="polite" aria-label={`Quantidade: ${item.quantity}`}>
+            {item.quantity}
+          </output>
+
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`Aumentar quantidade de ${item.name}`}
+            disabled={cannotIncrease}
+            onClick={() => increment(item.id)}
+          >
+            <PlusCircle aria-hidden="true" />
+          </Button>
+
+        </div>
+
+      </div>
+    </article>
+  );
 }

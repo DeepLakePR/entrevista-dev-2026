@@ -1,13 +1,14 @@
 import CartDrawer from "@/src/components/cart/CartDrawer";
 
 export default function RootLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
-    return (<>
-        {children}
-        <CartDrawer />
-        </>
-    )
+  return (
+    <>
+      <main id="main-content">{children}</main>
+      <CartDrawer />
+    </>
+  );
 }

@@ -89,3 +89,4 @@
 
 - (14:00) Refinamentos e melhorias finais (Busca/Filtro)
 - (16:30) Página de favoritos/favoritados
+- (17:40) SEO & Acessibilidade (a11y)
