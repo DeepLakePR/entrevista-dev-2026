@@ -1,28 +1,34 @@
 # Link Deploy
 
+**Deploy Vercel** <https://entrevista-dev-2026.vercel.app/>
+
 ## Frameworks e Tecnologias Utilizadas
+
+- Next.JS + Tailwind CSS + ShadCN
+- Cypress
 
 ## Estrutura do Projeto
 
-| **Diretório**         | **Descrição** |
-| `cypress/`            | Testes E2E |
-| `src/`                | Source |
-| `app/`                | Aplicação, API e demais rotas |
-| `(shop)/`             | Grupo de rotas focado para o e-Commerce do site |
-| `api/`                | Next.JS API Routes para servir o `products.json` |
-| `components/`         | Componentes reutilizáveis |
-| `cart/`               | CartDrawer (Container) e CartItem adicionado dentro do Drawer |
-| `product/`            | Card mostrando informações do produto |
-| `shared/`             | Header & Footer |
-| `skeletons/`          | Skeletons Loadings da Home & Product Page |
-| `ui/`                 | ShadCn Components |
-| `context/`            | CartContext & FavoritesContext passados no `layout.tsx` do `src/app/` |
-| `data/`               | `products.json` Listando os 10 produtos |
-| `hooks/`              | uso do localStorage pelos Contexts e chamadas Fetch da API através do `useProduct(s).ts` |
-| `lib/`                | Helper do ShadCn e Format Price convertendo para BRL (R$ 00,00) |
-| `api/`                | Chamadas Fetch para a API com opção de fetchProducts & fetchProductsById |
-| `server/`             | Lê `products.json` e retorna um Array de Produtos |
-| `types/`              | Demais types usados por toda a aplicação |
+```md
+ `cypress/`             # Testes E2E 
+ `src/`                 # Source 
+ `app/`                 # Aplicação, API e demais rotas 
+ `(shop)/`              # Grupo de rotas focado para o e-Commerce do site 
+ `api/`                 # Next.JS API Routes para servir o `products.json` 
+ `components/`          # Componentes reutilizáveis 
+ `cart/`                # CartDrawer (Container) e CartItem adicionado dentro do Drawer 
+ `product/`             # Card mostrando informações do produto 
+ `shared/`              # Header & Footer 
+ `skeletons/`           # Skeletons Loadings da Home & Product Page 
+ `ui/`                  # ShadCn Components 
+ `context/`             # CartContext & FavoritesContext passados no `layout.tsx` do `src/app/` 
+ `data/`                # `products.json` Listando os 10 produtos 
+ `hooks/`               # uso do localStorage pelos Contexts e chamadas Fetch da API através do `useProduct(s).ts` 
+ `lib/`                 # Helper do ShadCn e Format Price convertendo para BRL (R$ 00,00) 
+ `api/`                 # Chamadas Fetch para a API com opção de fetchProducts & fetchProductsById 
+ `server/`              # Lê `products.json` e retorna um Array de Produtos 
+ `types/`               # Demais types usados por toda a aplicação 
+```
 
 ## Como Rodar Localmente
 
@@ -39,7 +45,7 @@
 - Redesign do Header e Footer + Adição de Font Family Poppins para um design mais agradável
 - Uso do Codex para implementar o Skeleton Loading na listagem de produtos e na página de detalhes do produto
 - Refatoração e Revisão usando Codex para melhorar o que já foi feito
-- Por falta de tempo e por hoje ser o penúltimo dia para entregar o teste, optei por desenvolver as funcionalidades "finais/cereja do bolo" usando o Codex, com prompt bem descritivo e tendo a noção do que estou fazendo. O meu objetivo é entregar o teste 1 dia antes do prazo final.
+- Optei por desenvolver algumas das funcionalidades "finais/cereja do bolo" usando o Codex, com prompt bem descritivo e tendo a noção do que precisa ser feito. O meu objetivo é entregar o teste 1 dia antes do prazo final.
 
 ## Dúvidas e Suposições
 
