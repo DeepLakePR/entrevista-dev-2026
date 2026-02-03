@@ -51,8 +51,10 @@ export default function Header() {
                     <ShoppingCart className={cn(isCartBumping && "animate-cart-pop")} />
                     {totalItems}
                 </Button>
-                <Button size="lg">
-                    <HeartIcon fill="red" color="red" />
+                <Button size="lg" asChild>
+                    <Link href="/favorites" title="Favoritos">
+                        <HeartIcon fill="red" color="red" />
+                    </Link>
                 </Button>
             </div>
         </div>
