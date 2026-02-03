@@ -7,7 +7,7 @@ export default function Footer() {
             mx-auto 
             flex-col flex xl:flex-row 
             xl:justify-between items-center justify-center 
-            gap-y-1 
+            gap-y-4
             p-6 px-10 xl:p-8 xl:px-16
             text-center">
             <div className="contact">

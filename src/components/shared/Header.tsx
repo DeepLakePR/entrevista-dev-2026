@@ -34,12 +34,12 @@ export default function Header() {
     }, [totalItems]);
 
     return <header className="border-b-1">
-        <div className="text-white py-4 px-3 flex justify-between">
+        <div className="text-white p-4 flex justify-between lg:px-8">
             <Link href="/" title="Uncode Commerce">
                 <Image
                     src="/logo.png"
-                    width={96}
-                    height={96}
+                    width={64}
+                    height={64}
                     alt="Uncode Commerce Logo"
                     loading="lazy"
                     className="object-cover aspect-square"

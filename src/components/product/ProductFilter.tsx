@@ -56,7 +56,7 @@ export default function ProductFilter({
                 placeholder="Buscar"
                 value={searchTerm}
                 onChange={(event) => onSearchTermChange(event.target.value)}
-                className="lg:max-w-1/3"
+                className="lg:max-w-1/4"
             />
         </div>
     );
