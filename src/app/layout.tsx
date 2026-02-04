@@ -8,6 +8,7 @@ import { FavoritesProvider } from "../context/FavoritesContext";
 import { siteConfig } from "../lib/seo";
 
 import "./globals.css";
+import Script from "next/script";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -56,6 +57,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={poppins.variable}>
+      <head>
+        <Script src="/chatbot.min.js"></Script>
+      </head>
       <body>
         <CartProvider>
           <FavoritesProvider>
