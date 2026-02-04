@@ -12,6 +12,7 @@ import { Button } from "@/src/components/ui/button";
 import { cn, formatPrice } from "@/src/lib/utils";
 import { PRODUCT_IMAGE_PLACEHOLDER } from "@/src/lib/constants";
 import FavoritePageSkeleton from "@/src/components/skeletons/FavoritePageSkeleton";
+import FavoritesBreadcrumb from "../favorites/FavoritesBreadcrumb";
 
 export default function FavoritesPageClient() {
   const { favorites, removeFavorite } = useFavorites();
@@ -28,6 +29,8 @@ export default function FavoritesPageClient() {
   if (favorites.length === 0) {
     return (
       <section className="p-4 h-[80vh]" aria-labelledby="favorites-heading">
+
+        <FavoritesBreadcrumb />
 
         <div className="mx-auto w-full max-w-3xl space-y-3 text-center">
           <h1 id="favorites-heading" className="text-2xl font-semibold">
@@ -50,8 +53,11 @@ export default function FavoritesPageClient() {
   }
 
   return (
-    <section className="p-4 px-8" aria-labelledby="favorites-heading">
-      <div className="mx-auto w-full max-w-6xl space-y-4">
+    <section className="p-4 px-12" aria-labelledby="favorites-heading">
+      <div className="mx-auto w-full space-y-4">
+
+        <FavoritesBreadcrumb />
+
         <div className="flex items-end justify-between gap-4">
 
           <div>
