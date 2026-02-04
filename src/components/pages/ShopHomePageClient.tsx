@@ -61,7 +61,7 @@ export default function ShopHomePage() {
               <ProductCard product={product} key={product.id} />
             ))
           ) : (
-            <p className="px-4 py-8 text-muted-foreground">
+            <p className="px-4 py-8 text-muted-foreground w-full text-center h-[60vh]">
               Nenhum produto encontrado para os filtros selecionados.
             </p>
           )}

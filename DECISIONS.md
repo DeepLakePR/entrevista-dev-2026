@@ -50,7 +50,7 @@ Documento de decisões técnicas, trade-offs e histórico de desenvolvimento do 
 ## Riscos e limitações conhecidas
 
 - Persistência local depende de `localStorage` (sem autenticação e sem sync entre sessões/dispositivos).
-- API baseada em arquivo estático (`products.json`) sem camada de banco.
+- API baseada em arquivo estático (`products.json`) sem camada de banco de dados.
 - Cobertura focada em E2E; não há suíte robusta de testes unitários.
 
 ## Diário do desenvolvedor (ordem cronológica)
@@ -58,7 +58,7 @@ Documento de decisões técnicas, trade-offs e histórico de desenvolvimento do 
 ### 2026-01-31 (Sábado)
 
 - (11:30) Pré-análise do escopo requisitado.
-- Conversa/análise com IA (ChatGPT 5.2) para validar caminhos de implementação.
+- Conversa/análise com IA (ChatGPT 5.2 Codex) para validar caminhos de implementação.
 - Decisão de stack:
   - descarte de NestJS/Express/GraphQL para evitar overengineering;
   - Next.js + shadcn/ui no front-end;

@@ -43,7 +43,7 @@ Mini e-commerce funcional desenvolvido para teste técnico de Frontend, com foco
 ### Passo a passo
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/DeepLakePR/entrevista-dev-2026.git
 cd entrevista-dev-2026
 yarn
 yarn dev
@@ -106,6 +106,7 @@ README.md                     # Visão geral e guia de execução
 - **Foco em qualidade de UX** com filtros, busca, ordenação, skeleton loading e responsividade.
 - **Transparência no uso de IA**: ChatGPT 5.2 e Codex foram usados como apoio de decisão e refatoração.
 - **Cypress como suíte principal** de validação E2E; TestSprite foi usado de forma exploratória.
+- **Uso do Codex** para maximizar produtividade e qualidade na entrega.
 
 Para o histórico completo de decisões e trade-offs, consulte: [`DECISIONS.md`](DECISIONS.md).
 
@@ -126,3 +127,15 @@ Para o histórico completo de decisões e trade-offs, consulte: [`DECISIONS.md`]
 - Busca textual, filtro por categoria e ordenação por nome/preço.
 - SEO básico e boas práticas de acessibilidade (a11y).
 - Integração de chatbot via script externo.
+
+## O Que Eu Faria se Tivesse Mais Tempo
+
+Pequena lista de próximos passos que eu seguiria para evoluir o projeto:
+
+- Adicionar animações e transições para dar mais “vida” à interface.
+- Corrigir pequenos erros visuais (como transições secas).
+- Desenvolver uma página de checkout/pagamento.
+- Criar uma hero section com produtos em destaque, ofertas e campanhas.
+- Adicionar cálculo de frete no carrinho.
+- Evoluir a UI/UX em geral de todas as páginas e componentes.
+- Implementar testes unitários para regras de negócio e componentes críticos.
