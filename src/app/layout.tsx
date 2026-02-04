@@ -58,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={poppins.variable}>
       <head>
-        <Script src="/chatbot.min.js"></Script>
+        <Script src="/third-party/chatbot.min.js"></Script>
       </head>
       <body>
         <CartProvider>

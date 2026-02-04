@@ -34,7 +34,7 @@ export default function CategoryFilter({
     <section className="flex overflow-hidden lg:mb-8" aria-label="Filtrar por categoria">
       <div className="flex w-1280 
         overflow-x-scroll 
-        lg:items-center lg:justify-center lg:overflow-x-hidden 
+        md:items-center md:justify-center md:overflow-x-hidden 
         [&::-webkit-scrollbar]:[width:10px]"
       >
         {categories.map((category) => {
