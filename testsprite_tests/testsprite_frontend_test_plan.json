@@ -1,0 +1,65 @@
+[
+  {
+    "id": "R1-T1",
+    "title": "Load shop homepage",
+    "description": "Homepage loads and essential UI elements are visible.",
+    "steps": [
+      { "action": "visit", "target": "/" },
+      { "action": "assertVisible", "target": "text:Shop" },
+      { "action": "assertVisible", "target": "data-testid:product-grid" }
+    ]
+  },
+  {
+    "id": "R1-T2",
+    "title": "Navigate to product details",
+    "description": "User can open a product details page from the product grid.",
+    "steps": [
+      { "action": "visit", "target": "/" },
+      { "action": "click", "target": "data-testid:product-card-0" },
+      { "action": "assertVisible", "target": "data-testid:product-details" }
+    ]
+  },
+  {
+    "id": "R2-T1",
+    "title": "Add product to cart",
+    "description": "From product details user can add item to cart and cart shows the item.",
+    "steps": [
+      { "action": "visit", "target": "/" },
+      { "action": "click", "target": "data-testid:product-card-0" },
+      { "action": "click", "target": "data-testid:add-to-cart" },
+      { "action": "assertVisible", "target": "data-testid:cart-drawer" },
+      { "action": "assertContains", "target": "data-testid:cart-items", "value": "1" }
+    ]
+  },
+  {
+    "id": "R2-T2",
+    "title": "Favorite a product",
+    "description": "User can favorite a product and it appears on the favorites page.",
+    "steps": [
+      { "action": "visit", "target": "/" },
+      { "action": "click", "target": "data-testid:product-card-0" },
+      { "action": "click", "target": "data-testid:favorite-toggle" },
+      { "action": "visit", "target": "/favorites" },
+      { "action": "assertVisible", "target": "data-testid:favorite-list" }
+    ]
+  },
+  {
+    "id": "R3-T1",
+    "title": "GET /api/products",
+    "description": "Products API returns a 200 and non-empty list.",
+    "steps": [
+      { "action": "apiRequest", "method": "GET", "target": "/api/products" },
+      { "action": "assertStatus", "target": "/api/products", "value": 200 },
+      { "action": "assertJsonLengthGreaterThan", "target": "/api/products", "value": 0 }
+    ]
+  },
+  {
+    "id": "R3-T2",
+    "title": "GET /api/categories",
+    "description": "Categories API returns a 200 and list of categories.",
+    "steps": [
+      { "action": "apiRequest", "method": "GET", "target": "/api/categories" },
+      { "action": "assertStatus", "target": "/api/categories", "value": 200 }
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "project": "entrevista-dev-2026",
+  "title": "Uncode Commerce - Standard PRD",
+  "description": "High level product requirements for the shop app used by TestSprite to align test cases.",
+  "requirements": [
+    { "id": "R1", "title": "Shop navigation & homepage", "acceptance": "Homepage and primary navigation load correctly" },
+    { "id": "R2", "title": "Product interactions", "acceptance": "Users can add to cart and favorite products" },
+    { "id": "R3", "title": "API health & data", "acceptance": "Core APIs return successful responses and valid payloads" }
+  ]
+}

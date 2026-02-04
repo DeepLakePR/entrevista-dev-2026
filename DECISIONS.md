@@ -6,6 +6,7 @@
 
 - Next.JS + Tailwind CSS + ShadCN
 - Cypress
+- Pequenos testes com TestSprite
 
 ## Como Rodar Localmente
 
@@ -47,6 +48,7 @@
 - Uso do Codex para implementar o Skeleton Loading na listagem de produtos e na página de detalhes do produto
 - Refatoração e Revisão usando Codex para melhorar o que já foi feito
 - Optei por desenvolver algumas das funcionalidades "finais/cereja do bolo" usando o Codex, com prompt bem descritivo e tendo a noção do que precisa ser feito. O meu objetivo é entregar o teste 1 dia antes do prazo final.
+- Tentei rodar alguns testes com TestSprite MCP Server porém preferi dar mais ênfase ao Cypress
 
 ## Dúvidas e Suposições
 
@@ -90,3 +92,5 @@
 - (14:00) Refinamentos e melhorias finais (Busca/Filtro)
 - (16:30) Página de favoritos/favoritados
 - (17:40) SEO & Acessibilidade (a11y)
+- (19:50) Melhorias e pequenos acabamentos (Remove Filter, Remove Cart Item, Responsive)
+- (20:25) Bateria de Testes
