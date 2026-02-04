@@ -1,98 +1,97 @@
-# Link Deploy
+# DECISIONS.md
 
-**Deploy Vercel** <https://entrevista-dev-2026.vercel.app/>
+Documento de decisões técnicas, trade-offs e histórico de desenvolvimento do projeto.
 
-## Frameworks e Tecnologias Utilizadas
+## Contexto do desafio
 
-- Next.JS + Tailwind CSS + ShadCN
-- Cypress
-- Pequenos testes com TestSprite
+- Construir um mini e-commerce funcional com foco em organização de código, componentização, lógica e comunicação técnica.
+- Prazo curto (5 dias corridos), priorizando entrega estável e com boa experiência.
+- Objetivo de entrega pessoal: finalizar com antecedência de 1 dia para reduzir risco de última hora.
 
-## Como Rodar Localmente
+## Resumo da solução entregue
 
-1. Clone/Fork o repositório
-2. Rode o comando `yarn` (ou gerenciador de pacote de sua preferência) na raiz do projeto
-3. Em seguida, rode `yarn dev` para rodar localmente
-4. Caso queira rodar a bateria de testes, rode `yarn test:e2e`
+- Front-end em **Next.js (App Router)** com **TypeScript**, **Tailwind CSS** e **shadcn/ui**.
+- API interna via **Next.js API Routes**, lendo dados locais de `products.json`.
+- Fluxos principais implementados:
+  - Listagem de produtos;
+  - Página de produto;
+  - Carrinho em drawer com quantidade, remoção e total em tempo real;
+  - Favoritos;
+  - Busca, filtro por categoria e ordenação.
+- Diferenciais aplicados:
+  - Testes E2E com Cypress;
+  - SEO técnico (metadata, sitemap e robots);
+  - Melhorias de acessibilidade (labels, `aria-*`, navegação semântica);
+  - Skeleton loading;
+  - Chatbot com script externo (Chatbase).
 
-## Estrutura do Projeto
+## Registro de decisões técnicas (ADR simplificado)
 
-```md
- cypress/                         # Testes E2E 
- src/                             # Source 
-    app/                          # Aplicação, API e demais rotas 
-        (shop)/                   # Grupo de rotas focado para o e-Commerce do site 
-        api/                      # Next.JS API Routes para servir o `products.json` 
-    components/                   # Componentes reutilizáveis 
-        cart/                     # CartDrawer (Container) e CartItem adicionado dentro do Drawer 
-        category/                 # Container que lista as categorias e filtra ao selecionar 
-        product/                  # Card mostrando informações do produto 
-        shared/                   # Header & Footer 
-        skeletons/                # Skeletons Loadings da Home & Product Page 
-        ui/                       # ShadCn Components 
-    context/                      # CartContext & FavoritesContext passados no `layout.tsx` do `srcapp/` 
-    data/                         # `products.json` Listando os 10 produtos 
-    hooks/                        # uso do localStorage pelos Contexts e chamadas Fetch da API através do `useProduct(s).ts` 
-    lib/                          # Helper do ShadCn e Format Price convertendo para BRL (R$ 00,00) 
-        api/                      # Chamadas Fetch para a API com opção de fetchProducts & fetchProductsById 
-        server/                   # Lê `products.json` e retorna um Array de Produtos 
-    types/                        # Demais types usados por toda a aplicação 
-```
+| ID | Decisão | Motivo | Impacto |
+| --- | --- | --- | --- |
+| D-01 | Usar Next.js (App Router) | Unificar front-end + API no mesmo projeto e acelerar entrega | Menos overhead de infraestrutura e deploy simples na Vercel |
+| D-02 | Servir dados com API Routes | Evitar overengineering com NestJS/Express para escopo do teste | Endpoints simples, manutenção rápida |
+| D-03 | Estado com Context API + `localStorage` | Carrinho/favoritos precisam persistir sem backend real | Persistência por navegador; não sincroniza entre dispositivos |
+| D-04 | Separar regras em `features/*/utils` | Isolar lógica de negócio de componentes visuais | Código mais testável e reutilizável |
+| D-05 | UI com Tailwind + shadcn/ui + Radix | Ganhar velocidade com base sólida de componentes acessíveis | Padronização visual e menor retrabalho |
+| D-06 | Priorizar Cypress em vez de ampliar TestSprite | Garantir validação ponta a ponta dos fluxos críticos | Cobertura E2E prática para os requisitos principais |
+| D-07 | Implementar SEO e a11y já no escopo inicial | Melhorar qualidade geral além do mínimo obrigatório | Metadata dinâmica, sitemap, robots e melhor usabilidade |
+| D-08 | Adicionar chatbot externo | Diferencial de integração com IA no projeto | Dependência de script third-party |
+| D-09 | Uso assistido de IA (ChatGPT 5.2 e Codex) | Acelerar decisões e refinamentos em prazo curto | Transparência no processo, mantendo revisão crítica humana |
 
-## Decisões Relevantes
+## Dúvidas e suposições
 
-- Usei Chat GPT 5.2 & Codex para ter uma outra percepção acerca das decisões a serem tomadas para o desenvolvimento do projeto
-- Uso de Next.JS API Routes para evitar overengineering com NestJS ou Express
-- Estrutura de pastas e componentes criados para serem o mais amigáveis e reutilizáveis possível
-- Redesign do Header e Footer + Adição de Font Family Poppins para um design mais agradável
-- Uso do Codex para implementar o Skeleton Loading na listagem de produtos e na página de detalhes do produto
-- Refatoração e Revisão usando Codex para melhorar o que já foi feito
-- Optei por desenvolver algumas das funcionalidades "finais/cereja do bolo" usando o Codex, com prompt bem descritivo e tendo a noção do que precisa ser feito. O meu objetivo é entregar o teste 1 dia antes do prazo final.
-- Tentei rodar alguns testes com TestSprite MCP Server porém preferi dar mais ênfase ao Cypress
+- **Dúvida principal:** após iniciar a implementação, surgiu incerteza sobre o uso de bibliotecas de componentes prontas.
+- **Suposição adotada:** uso de shadcn/ui foi considerado válido para o desafio, pois:
+  - não altera os requisitos funcionais;
+  - melhora produtividade e consistência visual;
+  - representa prática comum em projetos reais com prazo limitado.
 
-## Dúvidas e Suposições
+## Riscos e limitações conhecidas
 
-- Depois de ter iniciado o projeto e construído a base dele, fiquei em dúvida se era permitido usar bibliotecas externas de componentes já prontos, eu usei o ShadCN para ajudar e como eu já tinha iniciado o projeto, eu não teria tempo para refazê-lo do 0, então prossegui com o desenvolvimento com a suposição de que seria permitido usar outras bibliotecas como ShadCN já que raramente componentes extensos e complexos são criados do início
+- Persistência local depende de `localStorage` (sem autenticação e sem sync entre sessões/dispositivos).
+- API baseada em arquivo estático (`products.json`) sem camada de banco.
+- Cobertura focada em E2E; não há suíte robusta de testes unitários.
 
-## Diário do Desenvolvedor - Teste Técnico (Em Ordem Cronológica)
+## Diário do desenvolvedor (ordem cronológica)
 
-### Sábado 31/01
+### 2026-01-31 (Sábado)
 
-- (11:30) Pré-Análise do escopo requisitado
-- Conversa/Análise com IA (Chat GPT 5.2) para ter um outro ponto de vista da IA e o que ela pensa a respeito dos pontos que eu trouxe a ela
-- Decisão de quais frameworks e bibliotecas serão usados
-  - Descarte do uso de NestJS OU Express e GraphQL para evitar overengineering
-  - Next.JS + ShadCN para o Front-End
-  - Next.JS API Routes para entregar o `products.json`
-  - Cypress Testes E2E como diferencial
-- (12:00) Setup inicial do projeto (instalação de dependências e etc)
-- Criação e organização das pastas e demais arquivos de configuração
-- (13:20) Correção de problemas de configuração como postcss, shadcn, etc
-- (14:15) Desenvolvimento da entrega dos produtos através das rotas `Products/` & `/Products/[id]`
-- (17:40) Desenvolvimento da base do Front-End (Header, Footer, Componentes)
+- (11:30) Pré-análise do escopo requisitado.
+- Conversa/análise com IA (ChatGPT 5.2) para validar caminhos de implementação.
+- Decisão de stack:
+  - descarte de NestJS/Express/GraphQL para evitar overengineering;
+  - Next.js + shadcn/ui no front-end;
+  - API Routes para servir `products.json`;
+  - Cypress como diferencial de qualidade.
+- (12:00) Setup inicial do projeto (dependências e configuração).
+- Estruturação de pastas e arquivos-base.
+- (13:20) Correções de configuração (PostCSS, shadcn, etc.).
+- (14:15) Desenvolvimento das rotas de produto (`/products` e `/products/[id]`).
+- (17:40) Base de UI (Header, Footer e componentes principais).
 
-### Domingo 01/02
+### 2026-02-01 (Domingo)
 
-- (13:50) Início do desenvolvimento dos principais componentes como ProductCard, CartItem
-- (15:30) Melhorias no Design, deixando mais clean, minimalista e moderno
-- (16:30) Página das informações do produto selecionado (Via URL)
-- (18:20) Drawer do Carrinho de Compras (CartDrawer & CartItem)
-- (21:30) Início do desenvolvimento das lógicas de adicionar ao carrinho, compra, favoritos, etc
-- (22:40) Integração do CartProvider e FavoritesProvider no `layout.tsx`
-- (23:00) Uso dos Providers/Context nas demais páginas e componentes
-- (23:30) Test Deploy para checar se está tudo ok em ambiente de produção
+- (13:50) Desenvolvimento de componentes centrais (`ProductCard`, `CartItem`).
+- (15:30) Melhorias visuais para interface mais clean e moderna.
+- (16:30) Página de detalhes do produto por URL.
+- (18:20) Drawer do carrinho (`CartDrawer` + `CartItem`).
+- (21:30) Lógicas de carrinho, compra e favoritos.
+- (22:40) Integração de `CartProvider` e `FavoritesProvider` no `layout.tsx`.
+- (23:00) Uso de context nas páginas e componentes.
+- (23:30) Teste de deploy em produção.
 
-### Segunda-Feira 02/02
+### 2026-02-02 (Segunda-feira)
 
-- (10:30) Melhorias visuais no breadcrumb da página de produto
-- (11:20) Refatoração completa do projeto usando Codex para refinamentos (Sem alterar o comportamento/lógica principal)
+- (10:30) Melhorias no breadcrumb da página de produto.
+- (11:20) Refatoração geral com suporte do Codex (sem alterar comportamento principal).
 
-### Terça-Feira 03/02
+### 2026-02-03 (Terça-feira)
 
-- (14:00) Refinamentos e melhorias finais (Busca/Filtro)
-- (16:30) Página de favoritos/favoritados
-- (17:40) SEO & Acessibilidade (a11y)
-- (19:50) Melhorias e pequenos acabamentos (Remove Filter, Remove Cart Item, Responsive)
-- (20:25) Bateria de Testes E2E com Cypress
-- (22:00) ChatBot criado com ChatBase via Javascript externo
-- (22:40) Finalização e refatoração do DECISIONS.md
+- (14:00) Refinamentos finais de busca/filtro.
+- (16:30) Página de favoritos.
+- (17:40) SEO e acessibilidade (a11y).
+- (19:50) Acabamentos finais (remoção de filtro, remoção de item do carrinho, responsividade).
+- (20:25) Execução da bateria E2E com Cypress.
+- (22:00) Integração do chatbot com JavaScript externo (Chatbase).
+- (22:40) Finalização e revisão da documentação.

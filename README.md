@@ -1,140 +1,128 @@
-# Desafio Tecnico - Desenvolvedor Frontend Junior
+# Uncode Commerce
 
-**Uncode** - Agencia especializada em e-commerce (Nuvemshop / VNDA)
+Mini e-commerce funcional desenvolvido para teste técnico de Frontend, com foco em componentização, organização de código, qualidade de interface e clareza de documentação.
 
----
+## Link Deploy
 
-## Sobre o desafio
+- Produção (Vercel): [https://entrevista-dev-2026.vercel.app/](https://entrevista-dev-2026.vercel.app/)
 
-Construa um **mini e-commerce funcional**. O objetivo e avaliar sua organizacao de codigo, componentizacao, logica de programacao e comunicacao tecnica.
+## Frameworks e Tecnologias Utilizadas
 
-**Prazo:** 5 dias corridos a partir do recebimento.
+### Base do projeto
 
----
+- **Next.js 16 (App Router)**
+- **React 19**
+- **TypeScript**
 
-## Requisitos obrigatorios
+### UI e experiência
 
-### Framework (escolha 1)
+- **Tailwind CSS 4**
+- **shadcn/ui** + **Radix UI**
+- **Lucide React** (ícones)
+- **Poppins** (`next/font/google`)
 
-- Next.js
-- Vite + React
-- Vite + Vue
-- Astro
+### Estado e dados
 
-### Servidor / API
+- **Context API** para carrinho e favoritos
+- **`localStorage`** para persistência local
+- **Next.js API Routes** para servir `products.json`
 
-Escolha uma das opcoes abaixo para servir os dados dos produtos:
+### Qualidade
 
-- Next.js API Routes
-- Express
-- NestJS
-- Fastify
-- JSON Server
+- **Cypress** para testes E2E
+- **ESLint** para linting
+- **SEO técnico** com metadata, `sitemap.xml` e `robots.txt`
 
-A API deve ler os dados do arquivo `products.json` fornecido neste repositorio e expor **no minimo** 2 endpoints:
+## Como Rodar Localmente
 
-| Endpoint | Descricao |
-|----------|-----------|
-| `GET /products` | Lista todos os produtos |
-| `GET /products/:id` | Retorna um produto pelo ID |
+### Pré-requisitos
 
-### Paginas e componentes
+- Node.js 20+ (recomendado para Next.js 16)
+- Yarn (ou npm/pnpm)
 
-- **Home** - Listagem de produtos com imagem, nome e preco
-- **Pagina de Produto** - Detalhes completos do produto + botao "Adicionar ao carrinho"
-- **Header** - Logo da loja + icone do carrinho com quantidade de itens
-- **Footer** - Simples, com informacoes basicas
+### Passo a passo
 
-### Minicarrinho (drawer / sidebar)
+```bash
+git clone <url-do-repositorio>
+cd entrevista-dev-2026
+yarn
+yarn dev
+```
 
-- Abre ao clicar no icone do carrinho no header
-- Lista os produtos adicionados
-- Permite alterar quantidade (+/-)
-- Permite remover item
-- Exibe total atualizado em tempo real
+A aplicação ficará disponível em `http://localhost:3000`.
 
-### Responsividade
+### Testes e validação
 
-- **Mobile-first**
-- Deve funcionar bem em **375px** (mobile) e **1440px** (desktop)
+```bash
+# Executa os testes E2E no terminal
+yarn test:e2e
 
-### Deploy publico
+# Abre o runner interativo do Cypress
+yarn cypress:open
 
-O projeto deve estar **publicado e acessivel via URL**. Use uma das plataformas abaixo (todas possuem plano gratuito):
+# Lint
+yarn lint
+```
 
-| Plataforma | Melhor para | Guia de deploy |
-|------------|-------------|----------------|
-| **Vercel** | Next.js, React, Vue | [Docs Vercel](https://vercel.com/docs/frameworks/full-stack/nextjs) |
-| **Netlify** | Vite + React, Vite + Vue, Astro | [Vite no Netlify](https://docs.netlify.com/build/frameworks/framework-setup-guides/vite/) \| [React no Netlify](https://docs.netlify.com/build/frameworks/framework-setup-guides/react/) |
-| **Render** | Qualquer stack (static site gratis) | [Primeiro deploy no Render](https://render.com/docs/your-first-deploy) \| [Deploy gratuito](https://render.com/docs/free) |
+> Observação: os testes E2E usam `baseUrl: http://localhost:3000`.
 
-> Inclua o **link do deploy** no README do seu projeto.
+## Estrutura do Projeto
 
-### Documentacao
+```text
+cypress/                      # Testes E2E e comandos customizados
+public/                       # Assets estáticos e script externo do chatbot
+src/
+  app/
+    (shop)/                   # Rotas da loja (home, produto, favoritos)
+    api/                      # API Routes (/api/products, /api/products/[id], /api/categories)
+    layout.tsx                # Layout raiz + providers + metadata
+    robots.ts                 # Regras de indexação
+    sitemap.ts                # Mapa de URLs indexáveis
+  components/
+    cart/                     # Drawer e item do carrinho
+    category/                 # Filtro por categoria
+    favorites/                # Breadcrumb e componentes auxiliares de favoritos
+    pages/                    # Containers de páginas client-side
+    product/                  # Card/listagem/filtros de produtos
+    shared/                   # Header e Footer
+    skeletons/                # Skeleton loading
+    ui/                       # Componentes base do shadcn/ui
+  context/                    # CartContext e FavoritesContext
+  data/                       # products.json (10 produtos)
+  features/                   # Regras de negócio isoladas (cart, favorites, products)
+  hooks/                      # Hooks de dados e localStorage
+  lib/                        # API helpers, SEO, utilitários, storage
+  types/                      # Tipos globais da aplicação
+DECISIONS.md                  # Registro técnico detalhado de decisões
+README.md                     # Visão geral e guia de execução
+```
 
-Inclua no seu README (ou em um arquivo `DECISIONS.md`) as seguintes secoes:
+## Decisões Relevantes
 
-- Por que escolheu o framework
-- Estrutura de pastas do projeto
-- Como rodar o projeto localmente
-- **Link do deploy publico**
-- Decisoes tecnicas relevantes
+- **Next.js full-stack** para concentrar front-end e API no mesmo projeto e simplificar deploy.
+- **API Routes** em vez de NestJS/Express para evitar overengineering no escopo do teste.
+- **Context API + localStorage** para persistência de carrinho/favoritos sem backend dedicado.
+- **Lógica de negócio isolada** em `src/features/*/utils` para reduzir acoplamento com UI.
+- **Foco em qualidade de UX** com filtros, busca, ordenação, skeleton loading e responsividade.
+- **Transparência no uso de IA**: ChatGPT 5.2 e Codex foram usados como apoio de decisão e refatoração.
+- **Cypress como suíte principal** de validação E2E; TestSprite foi usado de forma exploratória.
 
----
+Para o histórico completo de decisões e trade-offs, consulte: [`DECISIONS.md`](DECISIONS.md).
 
-## Diferenciais (nao obrigatorios, somam pontos)
+## Dúvidas e Suposições
 
-- Integracao com IA (ex: chatbot de recomendacao, busca semantica, descricao gerada por IA)
-- Testes (unitarios ou E2E)
-- TypeScript
-- Gerenciamento de estado (Context API, Zustand, Pinia, etc.)
-- Animacoes e transicoes no carrinho
-- Filtro ou busca de produtos
-- Boas praticas de acessibilidade (a11y)
-- SEO basico
+- Após o início do projeto, surgiu dúvida sobre o uso de bibliotecas de componentes prontas.
+- A suposição adotada foi que **shadcn/ui** seria aceitável no contexto do teste técnico, mantendo:
+  - aderência aos requisitos funcionais;
+  - consistência visual;
+  - produtividade dentro do prazo.
 
----
+## Funcionalidades Implementadas
 
-## Criterios de avaliacao
-
-| Criterio | Peso | O que avaliamos |
-|----------|------|-----------------|
-| Organizacao e componentizacao | 25% | Estrutura de pastas, separacao de responsabilidades, reuso de componentes |
-| CSS e responsividade | 20% | Abordagem mobile-first, consistencia visual, nao exigimos framework CSS especifico |
-| Logica do carrinho | 20% | Adicao, remocao, quantidade, total correto, persistencia do estado |
-| Servidor / API | 10% | Endpoints funcionais, separacao clara entre client e server |
-| Deploy publico | 10% | Projeto acessivel via URL, processo de deploy documentado |
-| Comunicacao tecnica | 5% | README claro, decisoes bem explicadas |
-| Diferenciais | 10% | IA, testes, TypeScript, etc. |
-
----
-
-## Dados dos produtos
-
-O arquivo `products.json` na raiz deste repositorio contem **10 produtos** prontos para uso. Utilize esses dados na sua API.
-
-Cada produto possui os campos: `id`, `name`, `price`, `description`, `image`, `category` e `stock`.
-
----
-
-## Entrega
-
-1. Faca um **fork** deste repositorio ou crie um repositorio proprio
-2. Desenvolva o projeto
-3. Faca o **deploy publico** (Vercel, Netlify, Render ou similar)
-4. Envie o **link do repositorio** e o **link do deploy** por e-mail ou no formulario indicado
-5. **Prazo:** 5 dias corridos
-
----
-
-## Dicas
-
-- Nao se preocupe com perfeicao - queremos ver seu raciocinio e como voce resolve problemas
-- **Commits frequentes e descritivos** sao valorizados
-- Prefira simplicidade funcional a complexidade quebrada
-- Se usar IA como ferramenta de desenvolvimento, mencione no README - transparencia e valorizada
-- Em caso de duvidas, documente suas suposicoes no README
-
----
-
-Boa sorte!
+- Listagem de produtos com imagem, nome e preço.
+- Página de detalhes com estoque, favoritos e ações de compra.
+- Carrinho em drawer com incremento/decremento, remoção e total em tempo real.
+- Página de favoritos com integração ao carrinho.
+- Busca textual, filtro por categoria e ordenação por nome/preço.
+- SEO básico e boas práticas de acessibilidade (a11y).
+- Integração de chatbot via script externo.
