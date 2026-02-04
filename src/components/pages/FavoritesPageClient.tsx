@@ -27,7 +27,7 @@ export default function FavoritesPageClient() {
 
   if (favorites.length === 0) {
     return (
-      <section className="p-4" aria-labelledby="favorites-heading">
+      <section className="p-4 h-[80vh]" aria-labelledby="favorites-heading">
 
         <div className="mx-auto w-full max-w-3xl space-y-3 text-center">
           <h1 id="favorites-heading" className="text-2xl font-semibold">
