@@ -1,43 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  readLocalStorageValue,
+  writeLocalStorageValue,
+} from "@/src/lib/storage/local-storage";
 
 type SetValue<T> = T | ((prev: T) => T);
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
+  const [value, setValue] = useState<T>(initialValue);
+  const initialValueRef = useRef(initialValue);
+  const skipNextWriteRef = useRef(true);
 
-    const [value, setValue] = useState<T>(initialValue);
-    const [isReady, setIsReady] = useState(false);
+  useEffect(() => {
+    skipNextWriteRef.current = true;
+    setValue(readLocalStorageValue(key, initialValueRef.current));
+  }, [key]);
 
-    useEffect(() => {
-        if (typeof window === undefined || typeof window === null)
-            throw new Error("Window is undefined");
-
-        try {
-            const stored = window.localStorage.getItem(key);
-            if (stored != null) {
-                setValue(JSON.parse(stored) as T);
-            }
-        } catch {
-
-        } finally {
-            setIsReady(true);
-        }
-    }, [key]);
-
-    useEffect(() => {
-
-        if(!isReady) return;
-
-        try{
-            window.localStorage.setItem(key, JSON.stringify(value));
-        }catch{}
-
-    }, [key, value, isReady]);
-
-    const setStoredValue = (next: SetValue<T>) => {
-        setValue(prev => (typeof next === "function" ? (next as (p: T) => T)(prev) : next));
+  useEffect(() => {
+    if (skipNextWriteRef.current) {
+      skipNextWriteRef.current = false;
+      return;
     }
 
-    return { value, setValue: setStoredValue, isReady };
+    writeLocalStorageValue(key, value);
+  }, [key, value]);
+
+  const setStoredValue = (next: SetValue<T>) => {
+    setValue((prev) =>
+      typeof next === "function" ? (next as (previous: T) => T)(prev) : next
+    );
+  };
+
+  return { value, setValue: setStoredValue };
 }

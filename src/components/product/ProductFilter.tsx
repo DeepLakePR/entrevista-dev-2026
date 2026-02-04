@@ -3,6 +3,7 @@
 import { Filter } from "lucide-react";
 
 import { Input } from "@/src/components/ui/input";
+import type { SortOption } from "@/src/features/products/types";
 import {
   Select,
   SelectContent,
@@ -14,8 +15,6 @@ import {
   SelectValue,
 } from "@/src/components/ui/select";
 import { Button } from "../ui/button";
-
-type SortOption = "price_asc" | "price_desc" | "name_asc" | "name_desc" | "";
 
 type ProductFilterProps = {
   sort: SortOption;

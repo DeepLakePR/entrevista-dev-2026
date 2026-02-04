@@ -1,4 +1,5 @@
 import type { Product } from "@/src/types/Product";
+import { fetchJson } from "./fetch-json";
 
 export type ProductsResponse = {
     ok: boolean;
@@ -9,11 +10,6 @@ export type ProductResponse = {
     ok: boolean;
     product: Product | null;
 };
-
-async function fetchJson<T>(input: RequestInfo | URL, init?: RequestInit) {
-    const res = await fetch(input, init);
-    return res.json() as Promise<T>;
-}
 
 export async function fetchProducts(signal?: AbortSignal): Promise<ProductsResponse> {
     const data = await fetchJson<ProductsResponse>("/api/products", { signal });
