@@ -1,7 +1,7 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "../ui/breadcrumb";
 
 export default function FavoritesBreadcrumb() {
-    return <Breadcrumb>
+    return <Breadcrumb className="mb-4">
 
         <BreadcrumbList>
 

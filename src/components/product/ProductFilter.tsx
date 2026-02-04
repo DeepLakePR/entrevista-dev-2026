@@ -39,7 +39,7 @@ export default function ProductFilter({
             <SelectValue placeholder="Ordenar por" />
           </SelectTrigger>
 
-          <SelectContent>
+          <SelectContent position="popper">
 
             <SelectGroup>
               <SelectLabel>Preço</SelectLabel>
