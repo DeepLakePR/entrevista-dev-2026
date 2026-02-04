@@ -31,6 +31,7 @@ export default function Header() {
             size="lg"
             onClick={() => setDrawerOpen(true)}
             aria-label={`Abrir carrinho com ${totalItems} item(ns)`}
+            data-test-id="cart-handler"
           >
             <ShoppingCart aria-hidden="true" />
             <span aria-live="polite" aria-atomic="true">
@@ -38,7 +39,8 @@ export default function Header() {
             </span>
           </Button>
 
-          <Button size="lg" asChild>
+          <Button size="lg" asChild
+          data-test-id="favorites-link">
             <Link href="/favorites" title="Favoritos" aria-label="Abrir pagina de favoritos">
               <HeartIcon fill="red" color="red" aria-hidden="true" />
               <span className="sr-only">Favoritos</span>

@@ -93,4 +93,4 @@
 - (16:30) Página de favoritos/favoritados
 - (17:40) SEO & Acessibilidade (a11y)
 - (19:50) Melhorias e pequenos acabamentos (Remove Filter, Remove Cart Item, Responsive)
-- (20:25) Bateria de Testes
+- (20:25) Bateria de Testes E2E com Cypress

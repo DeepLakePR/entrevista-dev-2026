@@ -33,7 +33,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <article className="w-full rounded-xl p-4 sm:w-1/2 lg:w-1/3">
 
-      <Link href={`/products/${id}`} title={`Ver detalhes de ${name}`}>
+      <Link href={`/products/${id}`} title={`Ver detalhes de ${name}`}
+        data-test-id={`product-card-${product.id}`}>
 
         <Card className="relative mx-auto w-full pt-0">
           <div className="mx-auto p-4 pb-0">
@@ -66,6 +67,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   event.preventDefault();
                   toggleFavorite(product);
                 }}
+                data-test-id={`product-card-favorite-${product.id}`}
               >
                 <HeartIcon fill={favorited ? "currentColor" : "none"} aria-hidden="true" />
               </Button>
@@ -87,6 +89,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 event.preventDefault();
                 addItem(product, { openDrawer: true });
               }}
+              data-test-id={`product-card-buy-${product.id}`}
             >
               Comprar
             </Button>
@@ -104,6 +107,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 event.preventDefault();
                 toggleItem(product);
               }}
+              data-test-id={`product-card-cart-${product.id}`}
             >
               {inCart ? <Check aria-hidden="true" /> : <ShoppingCart aria-hidden="true" />}
               <span className="sr-only">{inCart ? "No carrinho" : "Adicionar ao carrinho"}</span>
