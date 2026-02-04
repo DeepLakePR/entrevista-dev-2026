@@ -73,7 +73,7 @@ export default function CartDrawer() {
           </div>
 
           <DrawerFooter className="border-t-1 text-right lg:flex-row lg:items-center lg:justify-between lg:text-left">
-            <p aria-live="polite">
+            <p aria-live="polite" data-test-id="cart-total-price">
               Total: <span className="font-bold">{formatPrice(totalPrice)}</span>
             </p>
             <Button className="lg:w-40" disabled={items.length === 0}>
