@@ -1,141 +1,127 @@
 # Uncode Commerce
 
-Mini e-commerce funcional desenvolvido para teste técnico de Frontend, com foco em componentização, organização de código, qualidade de interface e clareza de documentação.
+Functional mini e-commerce built as a frontend technical challenge, focused on clean component architecture, practical state management, responsive UI, and clear delivery documentation.
 
-## Link Deploy
+Production: [https://entrevista-dev-2026.vercel.app/](https://entrevista-dev-2026.vercel.app/)
 
-- Produção (Vercel): [https://entrevista-dev-2026.vercel.app/](https://entrevista-dev-2026.vercel.app/)
+## Key Highlights
 
-## Frameworks e Tecnologias Utilizadas
+- Product listing with search, category filtering, and sorting.
+- Product details page with stock information and purchase actions.
+- Cart drawer with quantity controls, item removal, and real-time total calculation.
+- Favorites flow persisted in the browser.
+- Internal API routes serving local product data.
+- Responsive interface with loading skeletons and accessible UI primitives.
+- Technical SEO with metadata, `sitemap.xml`, and `robots.txt`.
+- E2E validation with Cypress.
+- External chatbot integration.
 
-### Base do projeto
+## The Challenge
 
-- **Next.js 16 (App Router)**
+The goal was to deliver a small but complete e-commerce experience within a short technical-test timeline. The project needed to demonstrate frontend fundamentals beyond static UI: data loading, reusable components, client-side state, persistence, filters, product navigation, and a reliable user flow from browsing to cart interaction.
+
+The main constraints were time, scope control, and keeping the implementation simple enough for a technical challenge while still showing production-oriented decisions.
+
+## The Solution
+
+Uncode Commerce uses Next.js App Router as a full-stack frontend solution. Product data is stored locally in `src/data/products.json` and exposed through Next.js API Routes, avoiding unnecessary backend complexity for the challenge scope.
+
+The shopping cart and favorites are handled with React Context API and persisted with `localStorage`, keeping the experience functional across reloads without requiring authentication or a database. Business rules for cart, favorites, and product filtering are separated into `src/features/*/utils`, which keeps UI components focused on presentation and interaction.
+
+The interface is built with Tailwind CSS, shadcn/ui, Radix UI primitives, and Lucide icons. Cypress covers the main end-to-end flows, while the app also includes basic SEO and accessibility improvements.
+
+## Technologies
+
+- **Next.js 16** with App Router
 - **React 19**
 - **TypeScript**
-
-### UI e experiência
-
 - **Tailwind CSS 4**
-- **shadcn/ui** + **Radix UI**
-- **Lucide React** (ícones)
-- **Poppins** (`next/font/google`)
+- **shadcn/ui**
+- **Radix UI**
+- **Lucide React**
+- **Context API**
+- **localStorage**
+- **Next.js API Routes**
+- **Cypress**
+- **ESLint**
 
-### Estado e dados
+## How to Run
 
-- **Context API** para carrinho e favoritos
-- **`localStorage`** para persistência local
-- **Next.js API Routes** para servir `products.json`
+### Requirements
 
-### Qualidade
+- Node.js 20+
+- Yarn
 
-- **Cypress** para testes E2E
-- **ESLint** para linting
-- **SEO técnico** com metadata, `sitemap.xml` e `robots.txt`
-
-## Como Rodar Localmente
-
-### Pré-requisitos
-
-- Node.js 20+ (recomendado para Next.js 16)
-- Yarn (ou npm/pnpm)
-
-### Passo a passo
+### Installation
 
 ```bash
-git clone https://github.com/DeepLakePR/entrevista-dev-2026.git
+git clone https://github.com/guifm-dev/entrevista-dev-2026.git
 cd entrevista-dev-2026
 yarn
 yarn dev
 ```
 
-A aplicação ficará disponível em `http://localhost:3000`.
-
-### Testes e validação
+The application will be available at:
 
 ```bash
-# Executa os testes E2E no terminal
+http://localhost:3000
+```
+
+### Available Scripts
+
+```bash
+# Start the development server
+yarn dev
+
+# Build the production version
+yarn build
+
+# Start the production server after building
+yarn start
+
+# Run linting
+yarn lint
+
+# Run Cypress E2E tests
 yarn test:e2e
 
-# Abre o runner interativo do Cypress
+# Open Cypress in interactive mode
 yarn cypress:open
-
-# Lint
-yarn lint
 ```
 
-> Observação: os testes E2E usam `baseUrl: http://localhost:3000`.
+Note: Cypress is configured to use `http://localhost:3000` as its base URL, so keep the development server running before executing the E2E suite.
 
-## Estrutura do Projeto
+## Project Structure
 
 ```text
-cypress/                      # Testes E2E e comandos customizados
-public/                       # Assets estáticos e script externo do chatbot
+cypress/                      # E2E tests and custom Cypress commands
+public/                       # Static assets and external chatbot script
 src/
   app/
-    (shop)/                   # Rotas da loja (home, produto, favoritos)
-    api/                      # API Routes (/api/products, /api/products/[id], /api/categories)
-    layout.tsx                # Layout raiz + providers + metadata
-    robots.ts                 # Regras de indexação
-    sitemap.ts                # Mapa de URLs indexáveis
+    (shop)/                   # Shop routes: home, product details, favorites
+    api/                      # API routes for products and categories
+    layout.tsx                # Root layout, providers, and metadata
+    robots.ts                 # Search engine crawling rules
+    sitemap.ts                # Indexable URL map
   components/
-    cart/                     # Drawer e item do carrinho
-    category/                 # Filtro por categoria
-    favorites/                # Breadcrumb e componentes auxiliares de favoritos
-    pages/                    # Containers de páginas client-side
-    product/                  # Card/listagem/filtros de produtos
-    shared/                   # Header e Footer
-    skeletons/                # Skeleton loading
-    ui/                       # Componentes base do shadcn/ui
-  context/                    # CartContext e FavoritesContext
-  data/                       # products.json (10 produtos)
-  features/                   # Regras de negócio isoladas (cart, favorites, products)
-  hooks/                      # Hooks de dados e localStorage
-  lib/                        # API helpers, SEO, utilitários, storage
-  types/                      # Tipos globais da aplicação
-DECISIONS.md                  # Registro técnico detalhado de decisões
-README.md                     # Visão geral e guia de execução
+    cart/                     # Cart drawer and cart item components
+    category/                 # Category filter components
+    favorites/                # Favorites page helpers
+    pages/                    # Client-side page containers
+    product/                  # Product card, listing, and filter components
+    shared/                   # Header and Footer
+    skeletons/                # Loading skeleton components
+    ui/                       # Base UI components
+  context/                    # CartContext and FavoritesContext
+  data/                       # Local products dataset
+  features/                   # Business rules for cart, favorites, and products
+  hooks/                      # Data fetching and localStorage hooks
+  lib/                        # API helpers, SEO, utilities, and storage helpers
+  types/                      # Shared TypeScript types
+DECISIONS.md                  # Detailed technical decisions and trade-offs
+README.md                     # Project overview and setup guide
 ```
 
-## Decisões Relevantes
+## Notes
 
-- **Next.js full-stack** para concentrar front-end e API no mesmo projeto e simplificar deploy.
-- **API Routes** em vez de NestJS/Express para evitar overengineering no escopo do teste.
-- **Context API + localStorage** para persistência de carrinho/favoritos sem backend dedicado.
-- **Lógica de negócio isolada** em `src/features/*/utils` para reduzir acoplamento com UI.
-- **Foco em qualidade de UX** com filtros, busca, ordenação, skeleton loading e responsividade.
-- **Transparência no uso de IA**: ChatGPT 5.2 e Codex foram usados como apoio de decisão e refatoração.
-- **Cypress como suíte principal** de validação E2E; TestSprite foi usado de forma exploratória.
-- **Uso do Codex** para maximizar produtividade e qualidade na entrega.
-
-Para o histórico completo de decisões e trade-offs, consulte: [`DECISIONS.md`](DECISIONS.md).
-
-## Dúvidas e Suposições
-
-- Após o início do projeto, surgiu dúvida sobre o uso de bibliotecas de componentes prontas.
-- A suposição adotada foi que **shadcn/ui** seria aceitável no contexto do teste técnico, mantendo:
-  - aderência aos requisitos funcionais;
-  - consistência visual;
-  - produtividade dentro do prazo.
-
-## Funcionalidades Implementadas
-
-- Listagem de produtos com imagem, nome e preço.
-- Página de detalhes com estoque, favoritos e ações de compra.
-- Carrinho em drawer com incremento/decremento, remoção e total em tempo real.
-- Página de favoritos com integração ao carrinho.
-- Busca textual, filtro por categoria e ordenação por nome/preço.
-- SEO básico e boas práticas de acessibilidade (a11y).
-- Integração de chatbot via script externo.
-
-## O Que Eu Faria se Tivesse Mais Tempo
-
-Pequena lista de próximos passos que eu seguiria para evoluir o projeto:
-
-- Adicionar animações e transições para dar mais “vida” à interface.
-- Corrigir pequenos erros visuais (como transições secas).
-- Desenvolver uma página de checkout/pagamento.
-- Criar uma hero section com produtos em destaque, ofertas e campanhas.
-- Adicionar cálculo de frete no carrinho.
-- Evoluir a UI/UX em geral de todas as páginas e componentes.
-- Implementar testes unitários para regras de negócio e componentes críticos.
+The full technical decision log is available in [`DECISIONS.md`](DECISIONS.md). It documents the main trade-offs, implementation history, assumptions, known limitations, and possible future improvements.
